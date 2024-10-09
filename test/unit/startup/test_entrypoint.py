@@ -176,6 +176,14 @@ def block_telemetry_client() -> Generator[MagicMock, None, None]:
         yield telem_mock
 
 
+@pytest.fixture(autouse=True)
+def mock_detect_system_capabilities() -> Generator[MagicMock, None, None]:
+    with patch.object(
+        entrypoint_mod, "detect_system_capabilities"
+    ) as mock_detect_system_capabilities:
+        yield mock_detect_system_capabilities
+
+
 def test_calls_worker_run(
     mock_worker_run: MagicMock,
 ) -> None:
